@@ -1,0 +1,39 @@
+<div class='card'>
+  <div class='card-header'>
+    {{pageTitle}}
+  </div>
+  <div class='card-body'>
+    <div>
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Enter search term" maxlength="50" (input)="textChanged()">
+      <button (click)="searchClicked()" class="btn btn-primary">Search</button>
+    </div>
+
+    <div *ngIf="noSearchTermMessage">
+      {{ noSearchTermMessage }}
+    </div>
+
+    <div *ngIf="searchPerformed && !noSearchTermMessage">
+      <div *ngIf="searchResults.length > 0" class="table-responsive mt-3">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let person of searchResults">
+              <td>{{ person.firstName }}</td>
+              <td>{{ person.lastName }}</td>
+              <td>{{ person.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div *ngIf="searchResults.length === 0">
+        No results found.
+      </div>
+    </div>
+  </div>
+</div>
