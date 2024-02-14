@@ -1,0 +1,23 @@
+﻿# Dockerfile_backend
+
+# Use the appropriate base image for .NET 6.0
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+
+# Set the working directory within the container
+WORKDIR /app
+
+# Copy the project files and restore dependencies
+COPY . .
+RUN dotnet restore
+
+# Build the application
+RUN dotnet build -c Release -o /app/build
+
+# Expose port 8080 for the backend service
+EXPOSE 8080
+
+# Set the backend service to listen on 0.0.0.0:8080
+ENV ASPNETCORE_URLS=http://0.0.0.0:8080
+
+# Run the backend service
+CMD ["dotnet", "run", "--urls", "http://0.0.0.0:8080"]
